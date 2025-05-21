@@ -21,7 +21,7 @@ function MealDetail() {
     }
   }, [id, selectedMeal]);
 
-  if (!meal) return <p className="text-center mt-10">Laddar...</p>;
+  if (!meal) return <p className="text-center mt-10">Loading...</p>;
 
   return (
     <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg p-6 mt-10">
@@ -29,7 +29,7 @@ function MealDetail() {
         onClick={() => navigate("/")}
         className="mb-6 text-blue-600 hover:underline font-medium"
       >
-        ← Tillbaka
+        ← Back
       </button>
 
       <div className="flex flex-col items-center">
@@ -42,7 +42,7 @@ function MealDetail() {
       </div>
 
       <div>
-        <h3 className="text-xl font-semibold mb-2 text-blue-700">Instruktioner</h3>
+        <h3 className="text-xl font-semibold mb-2 text-blue-700">Instructions</h3>
         <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">{meal.strInstructions}</p>
 
         {meal.strYoutube && (
@@ -52,7 +52,7 @@ function MealDetail() {
             rel="noreferrer"
             className="inline-block mt-6 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg transition-colors"
           > 
-            Se video på Youtube
+            Watch on Youtube
           </a>
         )}
       </div>

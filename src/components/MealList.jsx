@@ -5,12 +5,12 @@ import MealModal from "./MealModal";
 function MealList() {
   const { meals, selectedId, setSelectedId } = useContext(MealContext);
 
-  console.log("selectedId i MealList just nu:", selectedId);
+  console.log("selectedId in MealList now:", selectedId);
 
   if (!meals || meals.length === 0) {
     return (
-      <p className="text-center mt-6 text-white">
-        Inga träffar hittades.
+      <p className="text-center mt-6 text-black">
+        No matches found.
       </p>
     );
   }
@@ -23,7 +23,7 @@ function MealList() {
             key={meal.idMeal}
             className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow p-6 text-center cursor-pointer"
             onClick={() => {
-              console.log("Klickade på:", meal.idMeal);
+              console.log("clicked on:", meal.idMeal);
               setSelectedId(meal.idMeal);
             }}
           >
@@ -43,7 +43,7 @@ function MealList() {
         <MealModal
           mealId={selectedId}
           onClose={() => {
-            console.log("Modal stängs");
+            console.log("Modal closed");
             setSelectedId(null);
           }}
         />
