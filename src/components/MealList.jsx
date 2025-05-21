@@ -1,25 +1,55 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Search from "./components/Search";
-import MealList from "./components/MealList";
-import MealDetail from "./components/MealDetail";
+import React, { useContext } from "react";
+import { MealContext } from "../context/MealContext";
+import MealModal from "./MealModal";
 
-function App() {
+function MealList() {
+  const { meals, selectedId, setSelectedId } = useContext(MealContext);
+
+  console.log("selectedId i MealList just nu:", selectedId);
+
+  if (!meals || meals.length === 0) {
+    return (
+      <p className="text-center mt-6 text-white">
+        Inga träffar hittades.
+      </p>
+    );
+  }
+
   return (
-    <Router>
-      <div className="min-h-screen bg-gray-100 p-4">
-        <h1 className="text-3xl font-bold text-center mb-6 text-blue-600">Meal Finder</h1>
-        <Routes>
-          <Route path="/" element={
-            <>
-              <Search />
-              <MealList />
-            </>
-          } />
-          <Route path="/meal/:id" element={<MealDetail />} />
-        </Routes>
+    <>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+        {meals.map((meal) => (
+          <div
+            key={meal.idMeal}
+            className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow p-6 text-center cursor-pointer"
+            onClick={() => {
+              console.log("Klickade på:", meal.idMeal);
+              setSelectedId(meal.idMeal);
+            }}
+          >
+            <img
+              src={meal.strMealThumb}
+              alt={meal.strMeal}
+              className="mx-auto w-32 h-32 object-cover rounded-full mb-4 border-4 border-blue-100"
+            />
+            <h2 className="text-lg font-semibold" style={{ color: "#FF7B00" }}>
+              {meal.strMeal}
+            </h2>
+          </div>
+        ))}
       </div>
-    </Router>
+
+      {selectedId && (
+        <MealModal
+          mealId={selectedId}
+          onClose={() => {
+            console.log("Modal stängs");
+            setSelectedId(null);
+          }}
+        />
+      )}
+    </>
   );
 }
 
-export default App;
+export default MealList;

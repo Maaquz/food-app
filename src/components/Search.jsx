@@ -5,20 +5,27 @@ function Search() {
   const { mealName, setMealName, setMeals } = useContext(MealContext);
 
   const fetchMeals = async () => {
-    try {
-      const res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`);
-      const data = await res.json();
-      setMeals(data.meals || []);
-    } catch (error) {
-      console.error("Fel vid hämtning:", error);
-      setMeals([]);
-    }
-  };
+  try {
+    console.log("Söker efter:", mealName);
+    const res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${mealName}`);
+    const data = await res.json();
+    console.log("API-resultat:", data);
+    setMeals(data.meals || []);
+  } catch (error) {
+    console.error("Fel vid hämtning:", error);
+    setMeals([]);
+  }
+};
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (mealName.trim()) fetchMeals();
-  };
+  e.preventDefault();
+  console.log("Form skickades. Sökterm:", mealName);
+  if (mealName.trim()) {
+    fetchMeals();
+  } else {
+    console.warn("Ingen sökterm angiven.");
+  }
+};
 
   return (
     <form
@@ -29,8 +36,8 @@ function Search() {
         type="text"
         value={mealName}
         onChange={(e) => setMealName(e.target.value)}
-        placeholder="Sök efter en maträtt..."
-        className="w-full sm:w-2/3 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+        placeholder="Sök efter en ingrediens..."
+          className="w-full sm:w-72 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
       />
       <button
         type="submit"

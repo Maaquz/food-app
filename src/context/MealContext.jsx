@@ -5,13 +5,15 @@ export const MealContext = createContext();
 export const MealProvider = ({ children }) => {
     const [mealName, setMealName] = useState("");
     const [meals, setMeals] = useState([]);
-    const [selectedMeal, setSelectedMeal] = useState(null);
-
+    const [selectedId, setSelectedId] = useState(null);    
     return (
         <MealContext.Provider value={{
-            mealName, setMealName,
-            meals, setMeals,
-            selectedMeal, setSelectedMeal
+            mealName,
+            setMealName,
+            meals,
+            setMeals,
+            selectedId,
+            setSelectedId,
         }}>
             {children}
         </MealContext.Provider>
