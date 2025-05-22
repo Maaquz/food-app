@@ -3,11 +3,11 @@ import { MealContext } from "../context/MealContext";
 import MealModal from "./MealModal";
 
 function MealList() {
-  const { meals, selectedId, setSelectedId } = useContext(MealContext);
+  const { meals, selectedId, setSelectedId, hasSearched } = useContext(MealContext);
 
   console.log("selectedId in MealList now:", selectedId);
 
-  if (!meals || meals.length === 0) {
+  if (hasSearched && (!meals || meals.length === 0)) {
     return (
       <p className="text-center mt-6 text-black">
         No matches found.

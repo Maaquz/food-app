@@ -6,7 +6,7 @@ function MealDetail() {
   const { selectedMeal } = useContext(MealContext);
   const { id } = useParams();
   const navigate = useNavigate();
-  const [meal, setMeal] = useState(selectedMeal);
+  
 
   useEffect(() => { 
     if (!selectedMeal && id) {
@@ -22,42 +22,6 @@ function MealDetail() {
   }, [id, selectedMeal]);
 
   if (!meal) return <p className="text-center mt-10">Loading...</p>;
-
-  return (
-    <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg p-6 mt-10">
-      <button
-        onClick={() => navigate("/")}
-        className="mb-6 text-blue-600 hover:underline font-medium"
-      >
-        ← Back
-      </button>
-
-      <div className="flex flex-col items-center">
-        <img
-          src={meal.strMealThumb}
-          alt={meal.strMeal}
-          className="w-40 h-40 rounded-full object-cover border-4 border-blue-200 mb-4"
-        />
-        <h2 className="text-3xl font-bold text-gray-800 mb-4 text-center">{meal.strMeal}</h2>
-      </div>
-
-      <div>
-        <h3 className="text-xl font-semibold mb-2 text-blue-700">Instructions</h3>
-        <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">{meal.strInstructions}</p>
-
-        {meal.strYoutube && (
-          <a 
-            href={meal.strYoutube}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-block mt-6 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg transition-colors"
-          > 
-            Watch on Youtube
-          </a>
-        )}
-      </div>
-    </div>
-  );
 }
 
 export default MealDetail;

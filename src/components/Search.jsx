@@ -2,10 +2,10 @@ import { useContext } from "react";
 import { MealContext } from "../context/MealContext";
 
 function Search() {
-  const { mealName, setMealName, setMeals } = useContext(MealContext);
+  const { mealName, setMealName, setMeals, setHasSearched } = useContext(MealContext);
 
   const fetchMeals = async () => {
-  try {
+     try {
     console.log("Searching for:", mealName);
     const res = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${mealName}`);
     const data = await res.json();
@@ -14,6 +14,8 @@ function Search() {
   } catch (error) {
     console.error("Error while retrieving:", error);
     setMeals([]);
+  } finally {
+    setHasSearched(true);
   }
 };
 
@@ -37,7 +39,7 @@ function Search() {
         value={mealName}
         onChange={(e) => setMealName(e.target.value)}
         placeholder="Search for a ingredient..."
-          className="w-[600px] sm:w-72 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+        className="w-[600px] sm:w-72 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
       />
       <button
         type="submit"

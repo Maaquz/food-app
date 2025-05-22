@@ -4,7 +4,7 @@ function MealModal({ mealId, onClose }) {
   const [meal, setMeal] = useState(null);
   const hasLoaded = useRef(false);
 
-  console.log("MealModal öppnas med ID:", mealId);
+  console.log("MealModal open with ID:", mealId);
 
   useEffect(() => {
     if (!mealId || hasLoaded.current) return;
@@ -17,10 +17,10 @@ function MealModal({ mealId, onClose }) {
           `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
         );
         const data = await res.json();
-        console.log("API-respons i modal:", data);
+        console.log("API-respons in modal:", data);
         setMeal(data.meals?.[0]);
       } catch (error) {
-        console.error("Fel vid hämtning av måltid:", error);
+        console.error("Error while fetching meal:", error);
       }
     };
 
@@ -42,7 +42,7 @@ function MealModal({ mealId, onClose }) {
           fontSize: "1.5rem",
         }}
       >
-        Laddar...
+        Loading...
       </div>
     );
   }
@@ -108,7 +108,7 @@ function MealModal({ mealId, onClose }) {
         </h2>
 
         <h3 style={{ color: "#FF7B00", margin: "1rem 0 0.5rem" }}>
-          Instruktioner
+          Instructions
         </h3>
 
         <p
@@ -134,7 +134,7 @@ function MealModal({ mealId, onClose }) {
               textDecoration: "underline",
             }}
           >
-            Se video på YouTube
+            Watch on YouTube
           </a>
         )}
       </div>
